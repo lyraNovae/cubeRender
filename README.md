@@ -4,3 +4,4 @@ In order for this code to function, it uses the DrawingPanel program (v 4.07) by
 program provides a convenient object for initializing a canvas to draw figures on.
 This code was written starting 2022-4-11 by an ameteur programmer in a beginning programming class. Do not expect it
 to be clean or efficient.
+Programming environment - jGRASP
