@@ -1,0 +1,58 @@
+import java.awt.*;
+import java.lang.Math;
+
+public class GraphTest {
+   public static void main(String args[]) {
+      DrawingPanel panel = new DrawingPanel(800, 400);
+      Graphics g = panel.getGraphics();
+      panel.setBackground(Color.BLACK);
+      //set coords in 3d space
+      int[][] coords = {{-5, 5, 10}, {-5, -5, 10}, {-5, 5, 20}, {-5, -5, 20}, {5, 5, 10}, {5, -5, 10}, {5, 5, 20}, {5, -5, 20}};
+      //convert 3d coords to 2d display values
+      int[][] disCoords = new int[8][2];
+      for (int i = 0; i <= 7; i++) {
+         disCoords[i] = convDisp(coords[i]);
+      }
+      //plot lines between the points
+      plotLine(g, disCoords[0], disCoords[1]);
+      plotLine(g, disCoords[0], disCoords[2]);
+      plotLine(g, disCoords[0], disCoords[4]);
+      plotLine(g, disCoords[1], disCoords[3]);
+      plotLine(g, disCoords[1], disCoords[5]);
+      plotLine(g, disCoords[2], disCoords[3]);
+      plotLine(g, disCoords[2], disCoords[6]);
+      plotLine(g, disCoords[3], disCoords[7]);
+      plotLine(g, disCoords[4], disCoords[5]);
+      plotLine(g, disCoords[4], disCoords[6]);
+      plotLine(g, disCoords[5], disCoords[7]);
+      plotLine(g, disCoords[6], disCoords[7]);
+      
+   }
+   
+   public static int[] convDisp(int[] coords) {
+      int[] disCoords = new int[2];
+      disCoords[0] = (int) (Math.round(200 * Math.asin(1.0 * coords[0] / Math.hypot(coords[0], coords[2]))));
+      disCoords[1] = (int) (Math.round(200 * Math.asin(1.0 * coords[1] / Math.hypot(coords[1], coords[2]))));
+      return disCoords;
+   }
+   
+   public static void plotLine(Graphics g, int[] ptone, int[] pttwo) {
+      g.setColor(Color.WHITE);
+      g.drawLine(400+ptone[0], 200-ptone[1], 400+pttwo[0], 200-pttwo[1]);
+   }
+   
+   public static void plotPoint(Graphics g, int[] coord) {
+      g.setColor(Color.WHITE);
+      g.fillOval(200-coord[0], 100-coord[1], 7, 7);
+   }
+   
+   
+   public static void plotCorner(Graphics g, int x, int y, int z) {
+      int dsx = (int) (100 * Math.round( Math.asin(x / Math.hypot(x, z))));
+      int dsy = (int) (100 * Math.round( Math.asin(y / Math.hypot(y, z))));
+      System.out.println(dsx);
+      System.out.println(dsy);
+      g.setColor(Color.WHITE);
+      g.fillOval(200 - dsx, 100 - dsy, 5, 5);
+   }
+}
